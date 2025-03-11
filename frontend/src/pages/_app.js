@@ -1,5 +1,12 @@
-import "@/styles/globals.css";
+import "../styles/globals.css";
+import { AuthProvider } from "../context/AuthContext";
+import Navbar from "../components/Navbar"; // ✅ Use separate Navbar component
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <AuthProvider>
+      <Navbar /> {/* ✅ Use Navbar here instead of manually writing it */}
+      <Component {...pageProps} />
+    </AuthProvider>
+  );
 }

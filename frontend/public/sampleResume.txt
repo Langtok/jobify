@@ -1,0 +1,41 @@
+John Doe
+Software Engineer | Full-Stack Developer
+Email: john.doe@email.com | Phone: +1-123-456-7890
+LinkedIn: linkedin.com/in/johndoe | GitHub: github.com/johndoe
+
+Summary:
+Highly skilled software engineer with 5+ years of experience in full-stack development, specializing in JavaScript, React, Node.js, and cloud-based applications. Passionate about building scalable and efficient software solutions.
+
+Skills:
+- Programming Languages: JavaScript, TypeScript, Python, C++
+- Frontend: React, Next.js, Tailwind CSS, Redux
+- Backend: Node.js, Express, GraphQL, REST APIs
+- Databases: PostgreSQL, MongoDB, Firebase
+- Cloud & DevOps: AWS, Docker, CI/CD, Kubernetes
+- Tools: Git, Jest, Webpack, Postman
+
+Experience:
+Software Engineer - Tech Solutions Inc. | 2020 - Present
+- Developed and optimized React-based web applications, improving performance by 30%.
+- Designed and implemented RESTful APIs using Node.js and Express.
+- Led a team of 4 developers to migrate legacy applications to cloud-based solutions.
+- Integrated CI/CD pipelines, reducing deployment time by 50%.
+
+Frontend Developer - Web Innovations | 2018 - 2020
+- Built interactive UI components using React and Next.js.
+- Improved SEO performance, increasing organic traffic by 40%.
+- Worked closely with UX designers to enhance user experience.
+
+Education:
+Bachelor’s Degree in Computer Science - XYZ University | 2014 - 2018
+
+Certifications:
+- AWS Certified Solutions Architect
+- React Developer Certification
+
+Projects:
+- **E-commerce Platform**: Developed a full-stack e-commerce solution with Stripe payments.
+- **AI Chatbot**: Built a customer support chatbot using NLP and Python.
+
+References:
+Available upon request.

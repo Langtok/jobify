@@ -1,0 +1,63 @@
+[
+    {
+      "id": 1,
+      "title": "Frontend Developer",
+      "company": "Tech Corp",
+      "status": "Applied",
+      "appliedDate": "2024-03-01",
+      "notes": "Waiting for response",
+      "location": "Remote",
+      "salary": "$70,000 - $90,000",
+      "requiredSkills": ["React", "Next.js", "JavaScript", "Tailwind CSS"],
+      "matchScore": 85
+    },
+    {
+      "id": 2,
+      "title": "UI Engineer",
+      "company": "DesignPro",
+      "status": "Applied",
+      "appliedDate": "2024-03-01",
+      "notes": "Waiting for response",
+      "location": "New York, USA",
+      "salary": "$80,000 - $100,000",
+      "requiredSkills": ["Figma", "React", "CSS"],
+      "matchScore": 70
+    },
+    {
+      "id": 3,
+      "title": "Backend Developer",
+      "company": "CloudTech",
+      "status": "Applied",
+      "appliedDate": "2024-03-01",
+      "notes": "Waiting for response",
+      "location": "San Francisco, USA",
+      "salary": "$90,000 - $120,000",
+      "requiredSkills": ["Node.js", "Express", "MongoDB"],
+      "matchScore": 40
+    },
+    {
+      "id": 4,
+      "title": "Frontend Developer",
+      "company": "Tech Corp",
+      "status": "Applied",
+      "appliedDate": "2024-03-01",
+      "notes": "Waiting for response",
+      "location": "Remote",
+      "salary": "$70,000 - $90,000",
+      "requiredSkills": ["React", "Next.js", "JavaScript", "Tailwind CSS"],
+      "matchScore": 44
+    },
+    {
+      "id": 5,
+      "title": "UI Engineer",
+      "company": "DesignPro",
+      "status": "Interview Scheduled",
+      "appliedDate": "2024-02-25",
+      "notes": "Interview on March 10",
+      "location": "New York, USA",
+      "salary": "$80,000 - $100,000",
+      "requiredSkills": ["React", "Next.js", "JavaScript", "Tailwind CSS"],
+      "matchScore": 55
+    }
+  ]
+  

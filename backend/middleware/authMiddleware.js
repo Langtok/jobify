@@ -18,9 +18,21 @@ const authMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    
+    // ✅ Ensure the decoded token has a valid `userId`
+    if (!decoded.userId) {
+      return res.status(403).json({ message: "Invalid token payload" });
+    }
+
+    req.user = decoded; // Attach user info to request
     next();
   } catch (err) {
+    console.error("JWT Verification Error:", err.message);
+
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({ message: "Token has expired. Please log in again." });
+    }
+
     return res.status(403).json({ message: "Invalid token" });
   }
 };
