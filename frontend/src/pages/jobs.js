@@ -7,23 +7,19 @@ export default function Jobs() {
   const router = useRouter();
 
   useEffect(() => {
-    const storedJobs = localStorage.getItem("jobs");
-    if (storedJobs) {
-      setJobs(JSON.parse(storedJobs));
-      setLoading(false);
-    } else {
-      fetchJobs();
-    }
+    fetchJobs();
   }, []);
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch("/mockJobs.json");
+      const response = await fetch("/mockJobs.json"); // ✅ Always fetch fresh data
       if (!response.ok) throw new Error("Failed to fetch jobs");
 
       const data = await response.json();
+
+      // ✅ Save new data in localStorage
+      localStorage.setItem("jobs", JSON.stringify(data));
       setJobs(data);
-      localStorage.setItem("jobs", JSON.stringify(data)); 
     } catch (error) {
       console.error("Error fetching jobs:", error);
     } finally {

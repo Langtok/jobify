@@ -10,12 +10,14 @@ export default function AddJob() {
   const [error, setError] = useState("");
   const router = useRouter();
 
+  // ✅ Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
       const token = localStorage.getItem("token");
+      if (!token) throw new Error("Unauthorized: Please log in to add a job.");
 
       const response = await fetch("http://localhost:5000/api/jobs/add", {
         method: "POST",
@@ -29,7 +31,8 @@ export default function AddJob() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Failed to add job");
 
-      router.push("/jobs"); // Redirect to job listings
+      alert("✅ Job added successfully!");
+      router.push("/list");
     } catch (error) {
       setError(error.message);
     }
@@ -43,6 +46,7 @@ export default function AddJob() {
         {error && <p className="text-red-500 text-lg mb-4">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Job Title */}
           <div>
             <label className="block text-lg font-medium text-gray-700">Job Title</label>
             <input
@@ -55,6 +59,7 @@ export default function AddJob() {
             />
           </div>
 
+          {/* Company */}
           <div>
             <label className="block text-lg font-medium text-gray-700">Company</label>
             <input
@@ -67,6 +72,7 @@ export default function AddJob() {
             />
           </div>
 
+          {/* Applied Date */}
           <div>
             <label className="block text-lg font-medium text-gray-700">Applied Date</label>
             <input
@@ -78,6 +84,7 @@ export default function AddJob() {
             />
           </div>
 
+          {/* Status Dropdown */}
           <div>
             <label className="block text-lg font-medium text-gray-700">Status</label>
             <select
@@ -92,6 +99,7 @@ export default function AddJob() {
             </select>
           </div>
 
+          {/* Notes */}
           <div>
             <label className="block text-lg font-medium text-gray-700">Notes</label>
             <textarea
@@ -102,6 +110,7 @@ export default function AddJob() {
             />
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-3 text-lg rounded-md hover:bg-blue-700 transition"
@@ -109,6 +118,14 @@ export default function AddJob() {
             Add Job
           </button>
         </form>
+
+        {/* Back to Jobs */}
+        <button
+          onClick={() => router.push("/jobs")}
+          className="w-full mt-4 bg-gray-600 text-white py-3 text-lg rounded-md hover:bg-gray-700 transition"
+        >
+          Cancel
+        </button>
       </div>
     </div>
   );

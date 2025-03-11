@@ -34,11 +34,16 @@ const Navbar = () => {
         <h1 className="text-lg font-bold">Job Tracker</h1>
 
         <div className="flex space-x-4">
-          <Link href="/dashboard" className="hover:underline">Dashboard</Link>
           <Link href="/jobs" className="hover:underline">Jobs</Link>
+
 
           {user ? (
             <>
+              <Link href="/dashboard" className="hover:underline">Dashboard</Link>
+              <Link href="/saved-jobs" className="hover:underline">Saved Jobs</Link>
+              <Link href="/jobs/list" className="hover:underline">My Applications</Link>
+              <Link href="/list" className="hover:underline">Job List</Link>
+              <Link href="/resume" className="hover:underline">Resume</Link>
               <Link href="/jobs/add" className="bg-green-500 px-4 py-2 rounded hover:bg-green-700 transition">
                 + Add Job
               </Link>

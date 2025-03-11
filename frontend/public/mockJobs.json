@@ -44,8 +44,8 @@
       "notes": "Waiting for response",
       "location": "Remote",
       "salary": "$70,000 - $90,000",
-      "requiredSkills": ["React", "Next.js", "JavaScript", "Tailwind CSS"],
-      "matchScore": 44
+      "requiredSkills": ["React", "JavaScript", "Tailwind CSS"],
+      "matchScore": 100
     },
     {
       "id": 5,
@@ -58,6 +58,19 @@
       "salary": "$80,000 - $100,000",
       "requiredSkills": ["React", "Next.js", "JavaScript", "Tailwind CSS"],
       "matchScore": 55
+    },
+    {
+      "id": 6,
+      "title": "Full-Stack Developer",
+      "company": "InnovateX",
+      "status": "Open",
+      "appliedDate": "",
+      "notes": "Exciting opportunity in a growing company",
+      "location": "Remote",
+      "salary": "$100,000 - $120,000",
+      "requiredSkills": ["React", "JavaScript", "Tailwind CSS"],
+      "matchScore": 100
     }
+    
   ]
   

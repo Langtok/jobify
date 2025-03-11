@@ -87,4 +87,16 @@ router.delete("/delete/:id", authMiddleware, async (req, res) => {
   }
 });
 
+// ✅ Get all job applications (Public)
+router.get("/", async (req, res) => {
+  try {
+    const jobs = await getJobsByUser(); // Modify this function to fetch all jobs, not just user-specific ones
+    res.json(jobs);
+  } catch (err) {
+    console.error("Error fetching all jobs:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 module.exports = router;
