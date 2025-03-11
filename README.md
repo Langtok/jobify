@@ -35,46 +35,28 @@ JWT Authentication
 MongoDB / PostgreSQL
 🚀 Getting Started
 1️⃣ Clone the Repository
-sh
-Copy
-Edit
-git clone https://github.com/your-username/job-tracker.git
-cd job-tracker
+
+$> git clone https://github.com/your-username/job-tracker.git
+$> cd job-tracker
 2️⃣ Install Dependencies
-sh
-Copy
-Edit
-npm install  # Install backend dependencies
-cd frontend && npm install  # Install frontend dependencies
+
+$> npm install  # Install backend dependencies
+$> cd frontend && npm install  # Install frontend dependencies
 3️⃣ Setup Environment Variables
 Create a .env file in the backend root directory:
 
-sh
-Copy
-Edit
 PORT=5000
 MONGO_URI=your_database_url
 JWT_SECRET=your_secret_key
 FRONTEND_URL=http://localhost:3000
 Create a .env.local file in the frontend directory:
 
-sh
-Copy
-Edit
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
-4️⃣ Start the Backend Server
-sh
-Copy
-Edit
-npm run dev
-Backend runs at http://localhost:5000
+4️⃣ Start the Backend Server and Frontend
 
-5️⃣ Start the Frontend
-sh
-Copy
-Edit
-cd frontend
-npm run dev
+$> cd frontend
+$> npm run dev
+Backend runs at http://localhost:5000
 Frontend runs at http://localhost:3000
 
 📌 API Endpoints
@@ -92,12 +74,7 @@ DELETE	/api/jobs/delete/:id	Delete a job application
 3️⃣ Resume Feedback (Mock API)
 Method	Endpoint	Description
 POST	/api/resume/analyze	Get AI-powered feedback
-📷 Screenshots
-✅ Dashboard (Job Applications, Resume Feedback, Job Recommendations)
 
-✅ Job Details (Match Score, Required Skills, Apply Button)
-
-✅ Add Job Page
 
 🚀 Deployment
 Frontend: Vercel (https://your-project.vercel.app)
@@ -109,5 +86,4 @@ This project is MIT Licensed. Feel free to use and modify it.
 👨‍💻 Author
 Your Name
 
-GitHub: @your-username
-LinkedIn: Your LinkedIn
+GitHub: @langtok
