@@ -56,8 +56,12 @@ NEXT_PUBLIC_API_URL=https://jobify-gj12.onrender.com/api
 
 $> cd frontend
 $> npm run dev
-Backend runs at https://jobify-gj12.onrender.com
 Frontend runs at http://localhost:3000
+4️⃣B.
+$> cd backend
+$> npm run dev
+Backend runs at https://jobify-gj12.onrender.com
+
 
 📌 API Endpoints
 1️⃣ Authentication
