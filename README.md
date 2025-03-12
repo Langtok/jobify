@@ -51,12 +51,12 @@ JWT_SECRET=your_secret_key
 FRONTEND_URL=http://localhost:3000
 Create a .env.local file in the frontend directory:
 
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_API_URL=https://jobify-gj12.onrender.com/api
 4️⃣ Start the Backend Server and Frontend
 
 $> cd frontend
 $> npm run dev
-Backend runs at http://localhost:5000
+Backend runs at https://jobify-gj12.onrender.com
 Frontend runs at http://localhost:3000
 
 📌 API Endpoints
@@ -77,8 +77,8 @@ POST	/api/resume/analyze	Get AI-powered feedback
 
 
 🚀 Deployment
-Frontend: Vercel (https://your-project.vercel.app)
-Backend: Render/Heroku (https://your-api-url.com)
+Frontend: Vercel (https://jobify-u8po.vercel.app)
+Backend: Render/Heroku (https://jobify-gj12.onrender.com)
 Database: MongoDB Atlas / PostgreSQL
 📜 License
 This project is MIT Licensed. Feel free to use and modify it.

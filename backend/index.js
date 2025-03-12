@@ -9,7 +9,7 @@ const app = express();
 
 // ✅ Proper CORS configuration
 app.use(cors({
-  origin: "http://localhost:3000", // Allow frontend requests
+  origin: ["http://localhost:3000", "https://jobify-u8po.vercel.app"], // Allow frontend requests
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true // Allow authentication headers
 }));
