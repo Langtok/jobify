@@ -16,7 +16,7 @@ export default function JobList() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Unauthorized: Please log in.");
   
-      const response = await fetch("http://localhost:5000/api/jobs/my-jobs", {
+      const response = await fetch("https://jobify-gj12.onrender.com/api/jobs/my-jobs", {
         headers: { Authorization: `Bearer ${token}` }
       });
   

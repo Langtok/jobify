@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch("http://localhost:5000/api/auth/me", {
+    fetch("https://jobify-gj12.onrender.com/api/auth/me", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

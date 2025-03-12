@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/auth"; // Ensure this matches your backend
+const API_URL = "https://jobify-gj12.onrender.com/api/auth"; // Ensure this matches your backend
 
 // ✅ Register User
 export const registerUser = async (name, email, password) => {

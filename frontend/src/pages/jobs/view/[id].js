@@ -16,7 +16,7 @@ export default function JobView() {
       const token = localStorage.getItem("token"); // ✅ Fetch user token for authentication
       if (!token) throw new Error("Unauthorized: Please log in.");
 
-      const response = await fetch(`http://localhost:5000/api/jobs/${id}`, {
+      const response = await fetch(`https://jobify-gj12.onrender.com/api/jobs/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export default function JobView() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Unauthorized: Please log in.");
 
-      const response = await fetch(`http://localhost:5000/api/jobs/delete/${id}`, {
+      const response = await fetch(`https://jobify-gj12.onrender.com/api/jobs/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

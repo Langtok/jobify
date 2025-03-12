@@ -17,7 +17,7 @@ export default function EditJob() {
 
     const fetchJob = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/jobs/${id}`);
+        const response = await fetch(`https://jobify-gj12.onrender.com/api/jobs/${id}`);
         if (!response.ok) throw new Error("Failed to fetch job details");
 
         const data = await response.json();
@@ -43,7 +43,7 @@ export default function EditJob() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`http://localhost:5000/api/jobs/update/${id}`, {
+      const response = await fetch(`https://jobify-gj12.onrender.com/api/jobs/update/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

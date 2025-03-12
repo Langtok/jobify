@@ -19,7 +19,7 @@ export default function AddJob() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Unauthorized: Please log in to add a job.");
 
-      const response = await fetch("http://localhost:5000/api/jobs/add", {
+      const response = await fetch("https://jobify-gj12.onrender.com/api/jobs/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

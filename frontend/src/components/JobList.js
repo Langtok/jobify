@@ -12,7 +12,7 @@ export default function JobList() {
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/jobs/recommendations"); // ✅ Replace with actual API
+      const response = await fetch("https://jobify-gj12.onrender.com/api/jobs/recommendations"); // ✅ Replace with actual API
       if (!response.ok) throw new Error("Failed to fetch jobs");
 
       const data = await response.json();
