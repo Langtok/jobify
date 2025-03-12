@@ -6,23 +6,30 @@ require("dotenv").config(); // Load environment variables
 module.exports = {
   development: {
     client: "pg",
-    connection: process.env.DATABASE_URL, // ✅ Use DATABASE_URL for Render
+    connection: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false, // ✅ SSL for Render
+    },
     pool: { min: 2, max: 10 },
     migrations: {
       directory: "./migrations",
-      tableName: "knex_migrations"
+      tableName: "knex_migrations",
     },
     seeds: {
-      directory: "./seeds"
-    }
+      directory: "./seeds",
+    },
   },
 
   production: {
     client: "pg",
-    connection: process.env.DATABASE_URL, // ✅ Use DATABASE_URL for Production
+    connection: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false }, // ✅ Ensure SSL is enabled for Render
+    },
     pool: { min: 2, max: 10 },
     migrations: {
-      tableName: "knex_migrations"
-    }
-  }
+      directory: "./migrations",
+      tableName: "knex_migrations",
+    },
+  },
 };
