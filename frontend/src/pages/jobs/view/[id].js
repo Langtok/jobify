@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export default function JobView() {
   const router = useRouter();
@@ -8,12 +8,11 @@ export default function JobView() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (id) fetchJobDetails();
-  }, [id]);
-
-  const fetchJobDetails = async () => {
+  // ✅ Wrap fetchJobDetails in useCallback to fix the warning
+  const fetchJobDetails = useCallback(async () => {
     try {
+      if (!id) return;
+
       const token = localStorage.getItem("token"); // ✅ Fetch user token for authentication
       if (!token) throw new Error("Unauthorized: Please log in.");
 
@@ -35,16 +34,21 @@ export default function JobView() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]); // ✅ id is now a dependency for fetchJobDetails
+
+  // ✅ Now, useEffect won't trigger unnecessary re-renders
+  useEffect(() => {
+    fetchJobDetails();
+  }, [fetchJobDetails]);
 
   // ✅ Handle Delete
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this job?")) return;
-  
+
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Unauthorized: Please log in.");
-  
+
       const response = await fetch(`http://localhost:5000/api/jobs/delete/${id}`, {
         method: "DELETE",
         headers: {
@@ -52,14 +56,14 @@ export default function JobView() {
           Authorization: `Bearer ${token}`, // ✅ Ensure authentication
         },
       });
-  
+
       const data = await response.json();
-  
+
       if (!response.ok) {
         console.error("Delete Error:", data);
         throw new Error(data.message || "Failed to delete job.");
       }
-  
+
       alert("✅ Job application deleted successfully.");
       router.push("/list"); // ✅ Redirect after deletion
     } catch (error) {
@@ -67,7 +71,6 @@ export default function JobView() {
       alert(`❌ ${error.message}`);
     }
   };
-  
 
   if (loading) return <p className="text-center mt-10 text-lg">Loading job details...</p>;
   if (error) return <p className="text-center mt-10 text-lg text-red-500">{error}</p>;
