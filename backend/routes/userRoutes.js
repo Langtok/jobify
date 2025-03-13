@@ -11,38 +11,37 @@ const {
 
 const router = express.Router();
 
-// ✅ Create a new user (for testing, should not be exposed in production)
+// ✅ Create a new user (For testing, should not be exposed in production)
 router.post("/", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     
-    // 🔹 Ensure all fields are provided
     if (!name || !email || !password) {
       return res.status(400).json({ message: "Name, email, and password are required." });
     }
 
-    // 🔹 Check if user already exists
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
       return res.status(400).json({ message: "User already exists." });
     }
 
-    // 🔹 Hash password before saving
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = await createUser(name, email, hashedPassword);
-    res.status(201).json({ message: "User created successfully", user: { id: newUser.id, name, email } });
+    res.status(201).json({ 
+      message: "User created successfully", 
+      user: { id: newUser.id, name: newUser.name, email: newUser.email } 
+    });
   } catch (err) {
     console.error("Error creating user:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
 // ✅ Get user profile by ID (Protected)
 router.get("/:id", authMiddleware, async (req, res) => {
   try {
-    // 🔹 Only allow users to view their own profile
     if (req.user.userId !== parseInt(req.params.id)) {
       return res.status(403).json({ message: "Unauthorized access." });
     }
@@ -53,7 +52,7 @@ router.get("/:id", authMiddleware, async (req, res) => {
     res.json({ id: user.id, name: user.name, email: user.email });
   } catch (err) {
     console.error("Error fetching user:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
@@ -66,7 +65,7 @@ router.get("/email/:email", authMiddleware, async (req, res) => {
     res.json({ id: user.id, name: user.name, email: user.email });
   } catch (err) {
     console.error("Error fetching user by email:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
@@ -75,7 +74,6 @@ router.put("/:id", authMiddleware, async (req, res) => {
   try {
     const { name, email } = req.body;
 
-    // 🔹 Only allow users to update their own profile
     if (req.user.userId !== parseInt(req.params.id)) {
       return res.status(403).json({ message: "Unauthorized update request." });
     }
@@ -86,14 +84,13 @@ router.put("/:id", authMiddleware, async (req, res) => {
     res.json({ message: "Profile updated successfully", user: updatedUser });
   } catch (err) {
     console.error("Error updating user:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
 // ✅ Delete user account (Protected)
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {
-    // 🔹 Only allow users to delete their own account
     if (req.user.userId !== parseInt(req.params.id)) {
       return res.status(403).json({ message: "Unauthorized delete request." });
     }
@@ -104,7 +101,7 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     res.json({ message: "User deleted successfully" });
   } catch (err) {
     console.error("Error deleting user:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 

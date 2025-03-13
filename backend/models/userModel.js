@@ -1,11 +1,11 @@
 const db = require("../config/db");
 
-// ✅ Create a new user (Ensuring proper return structure)
+// ✅ Create a new user (Use encrypted_password)
 const createUser = async (name, email, hashedPassword) => {
   try {
     const [user] = await db("users")
-      .insert({ name, email, password: hashedPassword })
-      .returning(["id", "name", "email"]); // Return only necessary fields
+      .insert({ name, email, encrypted_password: hashedPassword }) // ✅ Use encrypted_password
+      .returning(["id", "name", "email"]); 
     return user;
   } catch (error) {
     console.error("Error creating user:", error);
@@ -18,7 +18,7 @@ const getUserById = async (id) => {
   try {
     const user = await db("users")
       .where({ id })
-      .select("id", "name", "email") // Exclude password for security
+      .select("id", "name", "email")
       .first();
     return user;
   } catch (error) {
@@ -27,12 +27,12 @@ const getUserById = async (id) => {
   }
 };
 
-// ✅ Get user by email (Include password for authentication)
+// ✅ Get user by email (Use encrypted_password for authentication)
 const getUserByEmail = async (email) => {
   try {
     const user = await db("users")
       .where({ email })
-      .select("id", "name", "email", "password") // Include password for login
+      .select("id", "name", "email", "encrypted_password as password") // ✅ Use encrypted_password
       .first();
     return user;
   } catch (error) {
