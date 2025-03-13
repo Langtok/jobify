@@ -33,15 +33,14 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      // ✅ Fix: Ensure `createUser` returns a correct user object
-      const newUser = await createUser(name, email, hashedPassword);
-      if (!newUser) {
-        return res.status(500).json({ message: "Failed to create user" });
-      }
+      user = await createUser(name, email, hashedPassword);
+
+      // ✅ Fix: Ensure we return the correct user object
+      const newUser = { id: user.id, name: user.name, email: user.email };
 
       const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-      res.status(201).json({ token, user: { id: newUser.id, name: newUser.name, email: newUser.email } });
+      res.json({ token, user: newUser });
     } catch (err) {
       console.error("Registration error:", err);
       res.status(500).json({ message: "Server error" });
@@ -66,13 +65,14 @@ router.post(
 
     try {
       const user = await getUserByEmail(email);
+      console.log("Retrieved user from DB:", user); // Debugging line
+
       if (!user) {
         return res.status(400).json({ message: "Invalid email or password" });
       }
 
-      // ✅ Fix: Ensure `user.password` is not `undefined`
       if (!user.password) {
-        return res.status(500).json({ message: "User data error: missing password field." });
+        return res.status(500).json({ message: "User data error: missing password field" });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
@@ -82,7 +82,10 @@ router.post(
 
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-      res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+      // ✅ Fix: Return user data without password
+      const loggedInUser = { id: user.id, name: user.name, email: user.email };
+
+      res.json({ token, user: loggedInUser });
     } catch (err) {
       console.error("Login error:", err);
       res.status(500).json({ message: "Server error" });

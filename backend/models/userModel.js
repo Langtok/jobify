@@ -1,32 +1,69 @@
 const db = require("../config/db");
 
-// ✅ Create a new user
+// ✅ Create a new user (Ensuring proper return structure)
 const createUser = async (name, email, hashedPassword) => {
-  return await db("users").insert({ name, email, password: hashedPassword }).returning(["id", "name", "email"]);
+  try {
+    const [user] = await db("users")
+      .insert({ name, email, password: hashedPassword })
+      .returning(["id", "name", "email"]); // Return only necessary fields
+    return user;
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw new Error("Database error while creating user");
+  }
 };
 
-// ✅ Get user by ID
+// ✅ Get user by ID (Exclude password for security)
 const getUserById = async (id) => {
-  return await db("users").where({ id }).first();
+  try {
+    const user = await db("users")
+      .where({ id })
+      .select("id", "name", "email") // Exclude password for security
+      .first();
+    return user;
+  } catch (error) {
+    console.error("Error fetching user by ID:", error);
+    throw new Error("Database error while fetching user by ID");
+  }
 };
 
-// ✅ Get user by email
+// ✅ Get user by email (Include password for authentication)
 const getUserByEmail = async (email) => {
-  return await db("users").where({ email }).first();
+  try {
+    const user = await db("users")
+      .where({ email })
+      .select("id", "name", "email", "password") // Include password for login
+      .first();
+    return user;
+  } catch (error) {
+    console.error("Error fetching user by email:", error);
+    throw new Error("Database error while fetching user by email");
+  }
 };
 
-// ✅ Update user details
+// ✅ Update user details (Ensure proper return structure)
 const updateUser = async (id, name, email) => {
-  const result = await db("users")
-    .where({ id })
-    .update({ name, email })
-    .returning(["id", "name", "email"]);
-  return result.length ? result[0] : null;
+  try {
+    const [updatedUser] = await db("users")
+      .where({ id })
+      .update({ name, email })
+      .returning(["id", "name", "email"]);
+    return updatedUser || null;
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw new Error("Database error while updating user");
+  }
 };
 
-// ✅ Delete a user
+// ✅ Delete a user (Return confirmation message)
 const deleteUser = async (id) => {
-  return await db("users").where({ id }).del();
+  try {
+    const deleted = await db("users").where({ id }).del();
+    return deleted ? { message: "User deleted successfully" } : null;
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    throw new Error("Database error while deleting user");
+  }
 };
 
 module.exports = { createUser, getUserById, getUserByEmail, updateUser, deleteUser };
