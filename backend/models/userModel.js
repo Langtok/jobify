@@ -1,11 +1,18 @@
 const db = require("../config/db");
 
-// ✅ Create a new user (Use encrypted_password)
+// ✅ Create a new user (Ensuring timestamps are set)
 const createUser = async (name, email, hashedPassword) => {
   try {
     const [user] = await db("users")
-      .insert({ name, email, encrypted_password: hashedPassword }) // ✅ Use encrypted_password
-      .returning(["id", "name", "email"]); 
+      .insert({
+        name,
+        email,
+        encrypted_password: hashedPassword, // ✅ Use encrypted_password column
+        created_at: new Date(),  // ✅ Ensure timestamps are set
+        updated_at: new Date()
+      })
+      .returning(["id", "name", "email", "created_at"]);
+
     return user;
   } catch (error) {
     console.error("Error creating user:", error);
@@ -27,12 +34,12 @@ const getUserById = async (id) => {
   }
 };
 
-// ✅ Get user by email (Use encrypted_password for authentication)
+// ✅ Get user by email (Include encrypted_password for authentication)
 const getUserByEmail = async (email) => {
   try {
     const user = await db("users")
       .where({ email })
-      .select("id", "name", "email", "encrypted_password as password") // ✅ Use encrypted_password
+      .select("id", "name", "email", "encrypted_password as password")
       .first();
     return user;
   } catch (error) {
@@ -46,7 +53,7 @@ const updateUser = async (id, name, email) => {
   try {
     const [updatedUser] = await db("users")
       .where({ id })
-      .update({ name, email })
+      .update({ name, email, updated_at: new Date() }) // ✅ Update timestamp
       .returning(["id", "name", "email"]);
     return updatedUser || null;
   } catch (error) {

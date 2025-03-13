@@ -11,31 +11,31 @@ const {
 
 const router = express.Router();
 
-// ✅ Create a new user (For testing, should not be exposed in production)
+// ✅ Create a new user (for testing, should not be exposed in production)
 router.post("/", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     
+    // 🔹 Ensure all fields are provided
     if (!name || !email || !password) {
       return res.status(400).json({ message: "Name, email, and password are required." });
     }
 
+    // 🔹 Check if user already exists
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
       return res.status(400).json({ message: "User already exists." });
     }
 
+    // 🔹 Hash password before saving
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = await createUser(name, email, hashedPassword);
-    res.status(201).json({ 
-      message: "User created successfully", 
-      user: { id: newUser.id, name: newUser.name, email: newUser.email } 
-    });
+    res.status(201).json({ message: "User created successfully", user: { id: newUser.id, name, email } });
   } catch (err) {
     console.error("Error creating user:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -52,20 +52,7 @@ router.get("/:id", authMiddleware, async (req, res) => {
     res.json({ id: user.id, name: user.name, email: user.email });
   } catch (err) {
     console.error("Error fetching user:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
-});
-
-// ✅ Get user by email (Protected)
-router.get("/email/:email", authMiddleware, async (req, res) => {
-  try {
-    const user = await getUserByEmail(req.params.email);
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    res.json({ id: user.id, name: user.name, email: user.email });
-  } catch (err) {
-    console.error("Error fetching user by email:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -84,7 +71,7 @@ router.put("/:id", authMiddleware, async (req, res) => {
     res.json({ message: "Profile updated successfully", user: updatedUser });
   } catch (err) {
     console.error("Error updating user:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -101,7 +88,7 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     res.json({ message: "User deleted successfully" });
   } catch (err) {
     console.error("Error deleting user:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
+    res.status(500).json({ message: "Server error" });
   }
 });
 

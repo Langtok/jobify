@@ -3,10 +3,11 @@ exports.up = function(knex) {
     if (!exists) {
       return knex.schema.createTable("users", (table) => {
         table.increments("id").primary();
-        table.string("name", 100).notNullable();
-        table.string("email", 100).notNullable().unique();
-        table.string("password", 255).notNullable();
-        table.timestamp("created_at").defaultTo(knex.fn.now());
+        table.string("name").notNullable();
+        table.string("email").notNullable().unique();
+        table.string("encrypted_password").notNullable(); // ✅ Use encrypted_password
+        table.timestamp("created_at").defaultTo(knex.fn.now()); // ✅ Default timestamps
+        table.timestamp("updated_at").defaultTo(knex.fn.now());
       });
     }
   });
